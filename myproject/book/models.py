@@ -6,7 +6,7 @@ from django.db import models
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
-    rating = models.FloatField()
+    rating = models.PositiveIntegerField()
 
     def get_rating_category(self):
         if self.rating < 1000:
