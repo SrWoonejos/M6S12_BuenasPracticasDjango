@@ -2,6 +2,8 @@
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models.signals import post_migrate
+from django.dispatch import receiver
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
@@ -18,10 +20,6 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.author}"
-
-# Señal para crear los permisos automáticamente
-from django.db.models.signals import post_migrate
-from django.dispatch import receiver
 
 @receiver(post_migrate)
 def create_custom_permissions(sender, **kwargs):

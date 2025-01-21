@@ -3,6 +3,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Book
 
+def list_books(request):
+    books = Book.objects.all()
+    return render(request, 'book/list_book.html', {'books': books})
+
+
 @login_required  # Restringe el acceso a usuarios autenticados
 def input_book(request):
     if request.method == 'POST':
@@ -16,7 +21,7 @@ def input_book(request):
             if 0 <= rating <= 10000:
                 # Guardar el libro en la base de datos
                 Book.objects.create(title=title, author=author, rating=rating)
-                return redirect('inputbook')  # Redirigir tras agregar un libro
+                return redirect('listbook')  # Redirigir tras agregar un libro
             else:
                 error = "La valoración debe estar entre 0 y 10000."
         except ValueError:
@@ -24,4 +29,4 @@ def input_book(request):
     else:
         error = None
 
-    return render(request, 'input_book/input_book.html', {'error': error})
+    return render(request, 'book/input_book.html', {'error': error})

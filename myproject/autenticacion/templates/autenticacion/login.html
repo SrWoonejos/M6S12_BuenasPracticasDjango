@@ -1,0 +1,43 @@
+{% extends "layout.html" %} 
+
+{% block title %}Iniciar Sesión{% endblock %} 
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center mb-4">Iniciar Sesión</h1>
+            
+            <!-- Mensajes de error/éxito -->
+            {% if messages %}
+                <div class="alert alert-info">
+                    <ul class="mb-0">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Formulario de inicio de sesión -->
+            <form method="post" class="shadow p-4 rounded bg-light">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario:</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Escribe tu usuario" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Escribe tu contraseña" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+            </form>
+
+            <!-- Enlace para registrarse -->
+            <div class="text-center mt-3">
+                <p>¿No tienes cuenta? <a href="{% url 'register' %}" class="text-decoration-none">Regístrate aquí</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
